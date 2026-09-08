@@ -73,6 +73,8 @@ Packages/packages-lock.json linguist-generated
 # Unity LFS
 *.cubemap               lfs
 *.unitypackage          lfs
+Assets/Racing/Art/Porsche911/Derived/*.asset lfs
+Assets/Racing/Art/PolyHaven/CircuitTerrain.asset lfs
 
 # 3D models
 *.3dm                   lfs
