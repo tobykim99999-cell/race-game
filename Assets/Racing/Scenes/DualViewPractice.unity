@@ -35708,6 +35708,7 @@ GameObject:
   - component: {fileID: 1529471630}
   - component: {fileID: 1529471629}
   - component: {fileID: 1529471632}
+  - component: {fileID: 1529471633}
   m_Layer: 0
   m_Name: Porsche 911 - Player
   m_TagString: Untagged
@@ -35833,6 +35834,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff1acb676b5d8384ea47bc6c2acf74a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CircuitRacing.TimeTrial
+--- !u!114 &1529471633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529471627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bb2cc83c7cb584c8b09ca162798860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CircuitRacing.RaceCarAudio
+  engineLoop: {fileID: 8300000, guid: a1bf3658c01344d4394d8b7d53310d8e, type: 3}
+  tyreLoop: {fileID: 8300000, guid: b06026c4ec5255a4798291517cf314d9, type: 3}
+  roadLoop: {fileID: 8300000, guid: 2779ea33d69c1a14da846a494ef3fa7e, type: 3}
+  collisionClip: {fileID: 8300000, guid: b46e915ca1a783848a100a70e727c270, type: 3}
 --- !u!1 &1531759081
 GameObject:
   m_ObjectHideFlags: 0

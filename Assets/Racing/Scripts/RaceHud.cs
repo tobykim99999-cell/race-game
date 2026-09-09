@@ -61,7 +61,9 @@ namespace CircuitRacing
             Button(pausePanel.transform, "Resume", 92f, () => SetPaused(false));
             Button(pausePanel.transform, "Restart", 28f, () => { car.ResetCar(); SetPaused(false); });
             Button(pausePanel.transform, "Switch Camera", -36f, () => cameraRig.ToggleView());
-            Button(pausePanel.transform, "Quit", -100f, () =>
+            var audio = car.GetComponent<RaceCarAudio>();
+            if (audio != null) VolumeSlider(pausePanel.transform, audio);
+            Button(pausePanel.transform, "Quit", audio == null ? -100f : -192f, () =>
             {
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
@@ -127,6 +129,31 @@ namespace CircuitRacing
             button.onClick.AddListener(action);
             var text = Label(rect, title, new Vector2(0f, 1f), Vector2.zero, new Vector2(310f, 48f), 22);
             text.alignment = TextAnchor.MiddleCenter;
+        }
+
+        private void VolumeSlider(Transform parent, RaceCarAudio audio)
+        {
+            var label = Label(parent, "SFX VOLUME", new Vector2(0.5f, 0.5f), new Vector2(-155f, -101f), new Vector2(310f, 28f), 18);
+            var rect = Rect(parent, "SFX Volume", new Vector2(0.5f, 0.5f), new Vector2(-155f, -139f), new Vector2(310f, 28f));
+            var slider = rect.gameObject.AddComponent<Slider>();
+            var track = Rect(rect, "Track", new Vector2(0f, 1f), new Vector2(0f, -11f), new Vector2(310f, 6f));
+            track.gameObject.AddComponent<Image>().color = new Color(0.15f, 0.25f, 0.28f);
+            var handle = Rect(rect, "Handle", Vector2.zero, Vector2.zero, new Vector2(16f, 28f));
+            handle.pivot = new Vector2(0.5f, 0.5f);
+            var handleImage = handle.gameObject.AddComponent<Image>();
+            handleImage.color = new Color(0.54f, 0.83f, 0.91f);
+            slider.handleRect = handle;
+            handle.sizeDelta = new Vector2(16f, 0f);
+            slider.targetGraphic = handleImage;
+            slider.minValue = 0f;
+            slider.maxValue = 1f;
+            slider.SetValueWithoutNotify(audio.MasterVolume);
+            label.text = "SFX VOLUME  " + Mathf.RoundToInt(audio.MasterVolume * 100f) + "%";
+            slider.onValueChanged.AddListener(value =>
+            {
+                audio.SetVolume(value);
+                label.text = "SFX VOLUME  " + Mathf.RoundToInt(value * 100f) + "%";
+            });
         }
     }
 }

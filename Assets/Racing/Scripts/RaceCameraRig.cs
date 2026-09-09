@@ -14,6 +14,7 @@ namespace CircuitRacing
 
         private Camera viewCamera;
         private Vector3 positionVelocity;
+        private VehicleAbilities abilities;
         private readonly RaycastHit[] cameraHits = new RaycastHit[24];
 
         private void Awake()
@@ -22,7 +23,11 @@ namespace CircuitRacing
             viewCamera.nearClipPlane = 0.035f;
         }
 
-        private void Start() => SnapToTarget();
+        private void Start()
+        {
+            if (car != null) abilities = car.GetComponent<VehicleAbilities>();
+            SnapToTarget();
+        }
 
         private void Update()
         {
@@ -37,7 +42,7 @@ namespace CircuitRacing
             {
                 // The cockpit camera stays attached to the rendered car pose to avoid clipping through its interior.
                 transform.SetPositionAndRotation(cockpitAnchor.position, cockpitAnchor.rotation);
-                viewCamera.fieldOfView = 72f;
+                viewCamera.fieldOfView = Mathf.Lerp(viewCamera.fieldOfView, abilities != null && abilities.Boosting ? 79f : 72f, 1f - Mathf.Exp(-7f * Time.deltaTime));
                 return;
             }
 
@@ -47,7 +52,9 @@ namespace CircuitRacing
             Quaternion rotation = Quaternion.LookRotation(lookTarget.position - position, Vector3.up);
             transform.position = position;
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 1f - Mathf.Exp(-12f * Time.deltaTime));
-            viewCamera.fieldOfView = Mathf.Lerp(61f, 70f, Mathf.Clamp01(car.SpeedKph / 180f));
+            float fieldOfView = Mathf.Lerp(61f, 70f, Mathf.Clamp01(car.SpeedKph / 180f));
+            if (abilities != null && abilities.Boosting) fieldOfView += 7f;
+            viewCamera.fieldOfView = Mathf.Lerp(viewCamera.fieldOfView, fieldOfView, 1f - Mathf.Exp(-7f * Time.deltaTime));
         }
 
         public void ToggleView()

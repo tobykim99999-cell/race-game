@@ -6,6 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Racing/Scenes/LongRoadPlains.unity
+    guid: fc559195436a2a444a1ba8e7aa46534d
+  - enabled: 1
+    path: Assets/Racing/Scenes/LongRoadForest.unity
+    guid: 5d258710ce8f27a418cba51dc5e48f7c
+  - enabled: 1
+    path: Assets/Racing/Scenes/LongRoadMountain.unity
+    guid: e2ab25829e305ee49bfe8af70780b779
+  - enabled: 1
+    path: Assets/Racing/Scenes/LongRoadDesert.unity
+    guid: 14dde0bb2962ed34e8135158c115c4ef
+  - enabled: 1
+    path: Assets/Racing/Scenes/DualViewPractice.unity
+    guid: f1fedd61b9b9abe4db161ad78005f7b3
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
